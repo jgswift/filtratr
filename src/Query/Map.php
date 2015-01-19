@@ -7,7 +7,7 @@ namespace filtratr\Query {
          * @param mixed $value
          * @return null
          */
-        protected function nuller($value) {
+        protected function nuller() {
             return null;
         }
         

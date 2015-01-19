@@ -20,14 +20,7 @@ namespace filtratr\Query {
                 return $this->lastValue = $value;
             }
             
-            $args = [$value, $this->lastValue];
-            if((is_array($callable) && 
-                array_key_exists(1,$callable) &&
-                array_key_exists($name = $callable[1], $this->arguments)) ||
-               (is_scalar($callable) &&
-                array_key_exists($name = $callable, $this->arguments))) {
-                $args = array_merge($args, $this->arguments[$name]);
-            }
+            $args = $this->parseCallArguments([$value, $this->lastValue], $callable);
             
             return $this->lastValue = call_user_func_array($callable, $args);
         }

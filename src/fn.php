@@ -20,13 +20,11 @@ function apply($value = null) {
  * @return \filtratr\ArrayQuery|\filtratr\ObjectQuery
  */
 function with($value = null) {
-    if(is_object($value)) {
-        return new ObjectQuery($value);
-    } elseif(!is_array($value)) {
+    if(!is_array($value) && !is_object($value)) {
         $value = [$value];
     }
     
-    return new ArrayQuery($value);
+    return apply($value);
 }
 
 /**

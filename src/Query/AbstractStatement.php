@@ -168,13 +168,12 @@ namespace filtratr\Query {
         }
         
         /**
-         * Performs callable filtration
-         * @param mixed $value
+         * Merges arguments from local store
+         * @param array $args
          * @param mixed $callable
-         * @return mixed
+         * @return array
          */
-        protected function call($value,$callable) {
-            $args = [$value];
+        protected function parseCallArguments(array $args, $callable) {
             if((is_array($callable) && 
                 array_key_exists(1,$callable) &&
                 array_key_exists($name = $callable[1], $this->arguments)) ||
@@ -182,6 +181,18 @@ namespace filtratr\Query {
                 array_key_exists($name = $callable, $this->arguments))) {
                 $args = array_merge($args, $this->arguments[$name]);
             }
+            
+            return $args;
+        }
+        
+        /**
+         * Performs callable filtration
+         * @param mixed $value
+         * @param mixed $callable
+         * @return mixed
+         */
+        protected function call($value,$callable) {
+            $args = $this->parseCallArguments([$value], $callable);
             
             return call_user_func_array($callable, $args);
         }
