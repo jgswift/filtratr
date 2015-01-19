@@ -53,7 +53,8 @@ var_dump($filter()); // ['foo' => 'bar']
 
 ```php
 $filter = filtratr\with([
-    'foo' => 'bar'
+    'foo' => 'bar',
+    'boo' => 'baz'
 ])->is('equals',['bar']);
 
 var_dump($filter()); // ['foo' => 'bar']
@@ -63,7 +64,8 @@ Conversely...
 
 ```php
 $filter = filtratr\with([
-    'foo' => 'bar'
+    'foo' => 'bar',
+    'boo' => 'baz'
 ])->not('equals',['bar']);
 
 var_dump($filter()); // ['boo' => 'baz']
@@ -75,7 +77,8 @@ Custom callbacks may easily be applied to every member of an array or object.  F
 
 ```php
 $filter = filtratr\with([
-    'foo' => 'bar'
+    'foo' => 'bar',
+    'boo' => 'baz'
 ])->is(function($val) {
     if($val === 'bar') {
         return true;
@@ -91,7 +94,6 @@ Specifying a key name before the callback will then only apply the callback to i
 
 ```php
 $filter = filtratr\with([
-    'foo' => 'fud',
     'foo' => 'bar',
     'bar' => 'baz'
 ])->is('foo', function($val) {
@@ -147,12 +149,11 @@ var_dump($filter()); // ['foo' => 'bar', 'fiz' => 'buz']
 
 ```php
 $filter = filtratr\with([
-    'foo' => ' fud ',
     'foo' => ' bar ',
     'bar' => ' baz '
 ])->map('foo', 'trim');
 
-var_dump($filter()); // ['foo' => 'fud', 'foo' => 'bar', 'bar' => ' baz ']
+var_dump($filter()); // ['foo' => 'bar', 'bar' => ' baz ']
 ```
 
 #### Concatenated Expressions
