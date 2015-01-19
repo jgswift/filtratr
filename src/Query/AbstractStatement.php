@@ -28,11 +28,23 @@ namespace filtratr\Query {
          */
         public function __construct($name, $callable = null) {
             $constructor_args = func_get_args();
+            
+            list($callable, $constructor_args) = call_user_func_array([$this,'extractConstructor'], $constructor_args);
+            $this->assignData($callable, $constructor_args);
+        }
+        
+        /**
+         * Extract relevant data from constructor arguments
+         * @param mixed $name
+         * @param mixed $callable
+         * @return array
+         */
+        private function extractConstructor($name, $callable = null) {
+            $constructor_args = func_get_args();
             $numArgs = func_num_args();
-            if(is_string($parsedName = $this->parseCallable($name))) {
-                if(is_callable($parsedName) || method_exists($this,$parsedName)) {
-                    $callable = $parsedName;
-                }
+            if(is_string($parsedName = $this->parseCallable($name)) &&
+               (is_callable($parsedName) || method_exists($this,$parsedName))) {
+                $callable = $parsedName;
             } 
             
             if(is_null($callable)) {
@@ -51,6 +63,15 @@ namespace filtratr\Query {
                 array_shift($constructor_args);
             } 
             
+            return [$callable, $constructor_args];
+        }
+        
+        /**
+         * Assign constructor data to statement
+         * @param mixed $callable
+         * @param array $constructor_args
+         */
+        private function assignData($callable, array $constructor_args) {
             $args = [];
             
             if(is_array($callable) && !is_callable($callable)) {
