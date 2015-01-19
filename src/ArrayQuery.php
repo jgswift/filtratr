@@ -26,7 +26,7 @@ namespace filtratr {
          * @param mixed $value
          * @return array
          */
-        public function execute(&$value = null) {
+        public function execute($value = null) {
             if(is_null($value)) {
                 if(empty($this->subject)) {
                     return $value;
