@@ -1,6 +1,6 @@
 filtratr
 ====
-filtering & mapping component
+filtering & mapping component 
 
 [![Build Status](https://travis-ci.org/jgswift/filtratr.png?branch=master)](https://travis-ci.org/jgswift/filtratr)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jgswift/filtratr/badges/quality-score.png?s=4c1433cd4686440e0a8a2eb2a0d3aac9d2a62337)](https://scrutinizer-ci.com/g/jgswift/filtratr/)
