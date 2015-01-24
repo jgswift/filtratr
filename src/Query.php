@@ -61,7 +61,7 @@ namespace filtratr {
          */
         private function iterate($filter, $value, &$data) {
             $keys = array_keys($value);
-            $firstKey = $keys[0];
+            $firstKey = isset($keys[0]) ? $keys[0] : null;
             
             foreach($value as $k => $val) {
                 if($filter instanceof Interfaces\QueryStatement) {
